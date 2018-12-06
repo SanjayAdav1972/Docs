@@ -1,0 +1,58 @@
+WebServices/REST API Testing with SoapUI + Real Time Project
+
+WebServices testing manually:
+Add New SOAP Project with WSDL
+create SOAP Project and add Test Suites, Test Cases and add SOAP Request as steps
+Add Assertions to validate SOAP response - Property content check (Contains, NotContains), Soap Assertion, Status code, SLA, Script, xPath match (count, exists) etc.
+Maintain properties in Project, Test Suite, Test Case and as Properties test steps
+level${#TestSuite#PropName}
+${#TestCase#PropName}
+${#Project#ProName}
+${Properties#PropName}
+Retrieve properties from external Property file (ext .Properties)
+Propertry Transfer between test cases:
+declare namespace ns="sas"
+//abc/ads/text()
+
+WebServices automation using Groovy script(log, context and testRunner):
+
+// import packages
+import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext
+
+//Context variable is used to access and modify the properties of your testcase
+//scope of context lies in Testcase only!
+log.info context.expand('${#TestCase#PropName}')
+// To access/modify any property you have to come through its parent only
+
+testRunner variable is used to access/modify properties of project level
+log.info testRunner.testCase.testSuite.testCases["GetEmployee"].getPropertyValue("propName")
+testRunner.testCase.testSuite.testCases["GetEmployee"].setPropertyValue("propName", "value")
+log.info testRunner.testCase.testSuite.testCases["GetEmployee"].testSteps["get"].getPropertyValue("Request")
+def project = testRunner.testCase.testSuite.project
+project.getPropertyValue("gender")
+
+Parsing XML Request and response using XMLHolder API
+def addReq = testRunner.testCase.testSuite.testCases["addEmp"].testSteps["add"].getPropertyValue("Request")
+def xmlAdd =  new XmlHolder(addReq)
+def name = testRunner.testCase.testSuite.testCases["addEmployee"].getPropertyValue("Name")
+xmlAdd.setNodeValue("//typ:addEmp/typ:name", name)		// xPath inside the soap:Body
+...
+def newAddXml = xmlAdd.getXML()
+testRunner.testCase.testSuite.testCases["addEmp"].testSteps["add"].setPropertyValue("Request", newAddXml)
+
+Triggering SOAP request through Groovy code:
+//context of addEmp testcase should be passed which we are trying to run
+def addtestStep = testRunner.testCase.testSuite.testCases["addEmp"].testSteps["add"]
+def contextAddEmp = new WsdlTestRunContext(addtestStep);
+addtestStep.run(testRunner, contextAddEmp)
+
+// Validation the service response with Assertions
+def addRes = testRunner.testCase.testSuite.testCases["addEmp"].testSteps["add"].getPropertyValue("Response")
+def getResponse = getEmpResp.getNodeValue("//ns:name")
+log.info getResponse
+assert getResponse==name
+============================
+REST API testing
+
+

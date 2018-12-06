@@ -1,0 +1,448 @@
+npm
+===
+1. Introduction
+---------------
+https://www.npmjs.com/
+npm is package manager for JavaScript
+Package contains 1 or more modules(reusable code) with special file Package.json.
+With npm you can share the code with other and manage.
+
+2. Getting npm
+--------------
+Go to nodejs.org and download and install latest stable release of node.json
+node.js downloaded for this practice is 8.12.0
+
+commands to verify nodeJs install successfully (open Command prompt)
+node -v
+v8.12.0
+
+npm -v
+6.4.1
+
+3. npm Help
+-----------
+npm help
+
+npm install (with no args, in package dir)
+npm install [<@scope>/]<pkg>
+npm install [<@scope>/]<pkg>@<tag>
+npm install [<@scope>/]<pkg>@<version>
+npm install [<@scope>/]<pkg>@<version range>
+npm install <folder>
+npm install <tarball file>
+npm install <tarball url>
+npm install <git:// url>
+npm install <github username>/<github project>
+
+aliases: i, isntall, add
+common options: [--save-prod|--save-dev|--save-optional] [--save-exact] [--no-save]
+
+npm help-search update
+Top hits for "update"
+————————————————————————————————————————————————————————————————————————————————
+npm help update                                                        update:16
+npm help config                                                         update:8
+npm help package-locks                                                  update:7
+npm help outdated                                                       update:5
+npm help install                                                        update:4
+npm help hook                                                           update:4
+npm help semver                                                         update:4
+npm help disputes                                                       update:3
+npm help npmrc                                                          update:2
+npm help audit                                                          update:2
+npm help uninstall                                                      update:2
+npm help file-specifiers                                                update:2
+npm help index                                                          update:2
+npm help developers                                                     update:1
+npm help publish                                                        update:1
+npm help shrinkwrap.json                                                update:1
+npm help package-lock.json                                              update:1
+npm help profile                                                        update:1
+npm help shrinkwrap                                                     update:1
+npm help ls                                                             update:1
+npm help config                                                         update:1
+npm help deprecate                                                      update:1
+npm help dedupe                                                         update:1
+npm help package-lock                                                   update:1
+————————————————————————————————————————————————————————————————————————————————
+(run with -l or --long to see more context)
+
+npm help update
+The above command will open up update help in browser (C:/Program Files/nodejs/node_modules/npm/html/doc/cli/npm-update.html)
+
+4. package.json
+a. Help you Manage Dependencies of your project and
+b. Let you add Scripts that help you for initial build
+
+Opem com prompt and type npm init
+package name: (windows)
+version: (1.0.0)
+description:
+entry point: (index.js)
+test command:
+git repository:
+keywords:
+author:
+license: (ISC)
+About to write to C:\Windows\package.json:
+
+{
+  "name": "windows",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
+
+Creating the same file without specifying any paramater use command npm init --yes
+C:\NPMStudy>npm init --yes
+Wrote to C:\NPMStudy\package.json:
+
+{
+  "name": "NPMStudy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+
+Note:
+1. npm init command do not work if your folder in inside c:\program Files
+2. The folder name should not have any spaces between
+
+5. package.json defaults
+How to send some default parameters to package.json file
+C:\NPMStudy>npm config set init-author-name "Sanjay Adav"
+
+C:\NPMStudy>npm set init-license "MIT"
+
+Delete package.json if already exists and type below command
+C:\NPMStudy>npm init --yes
+Wrote to C:\NPMStudy\package.json:
+
+{
+  "name": "NPMStudy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Sanjay Adav",
+  "license": "ISC",
+  "description": ""
+}
+
+To check the default values set:
+C:\NPMStudy>npm config get init-author-name
+Sanjay Adav
+
+C:\NPMStudy>npm get init-license
+MIT
+
+To delete default set values:
+C:\NPMStudy>npm config delete init-license
+
+C:\NPMStudy>npm config delete init-authour-name
+
+6. Installing Local Packages
+Install package locally without adding an entry into package.json
+C:\NPMStudy>npm install moment
+npm notice created a lockfile as package-lock.json. You should commit this file.
+npm WARN NPMStudy@1.0.0 No description
+npm WARN NPMStudy@1.0.0 No repository field.
+
++ moment@2.22.2
+added 1 package from 6 contributors and audited 1 package in 4.846s
+found 0 vulnerabilities
+
+Install package with entry into package.json as production dependencies
+C:\NPMStudy>npm install moment --save
+npm notice created a lockfile as package-lock.json. You should commit this file.
+npm WARN NPMStudy@1.0.0 No description
+npm WARN NPMStudy@1.0.0 No repository field.
+
++ moment@2.22.2
+added 1 package from 6 contributors and audited 1 package in 2.698s
+found 0 vulnerabilities
+
+package.json now contains:
+{
+  "name": "NPMStudy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Sanjay Adav",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.22.2"
+  }
+}
+
+Install package with entry into package.json as development dependencies
+C:\NPMStudy>npm install lodash --save-dev
+npm WARN NPMStudy@1.0.0 No description
+npm WARN NPMStudy@1.0.0 No repository field.
+
++ lodash@4.17.11
+added 1 package from 2 contributors and audited 2 packages in 9.284s
+found 0 vulnerabilities
+
+package.json will have now:
+{
+  "name": "NPMStudy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Sanjay Adav",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.22.2"
+  },
+  "devDependencies": {
+    "lodash": "^4.17.11"
+  }
+}
+
+Note: When you run all above command a folder name "node_modules" will get created inside your working folder and pacakge get copied inside
+
+7. Uninstalling Local Packages
+C:\NPMStudy>npm uninstall moment -- save
+npm WARN NPMStudy@1.0.0 No description
+npm WARN NPMStudy@1.0.0 No repository field.
+
+removed 1 package and audited 1 package in 1.203s
+found 0 vulnerabilities
+
+C:\NPMStudy>npm uninstall lodash --save-dev
+npm WARN NPMStudy@1.0.0 No description
+npm WARN NPMStudy@1.0.0 No repository field.
+
+removed 1 package in 1.204s
+found 0 vulnerabilities
+
+8. Installing Global Packages
+C:\NPMStudy>npm install moment -g
++ moment@2.22.2
+added 1 package from 6 contributors in 2.911s
+
+9. Uninstalling Global Packages
+C:\NPMStudy>npm uninstall moment -g
+removed 1 package in 0.516s
+
+10. Listing Packages
+C:\NPMStudy>npm list
+NPMStudy@1.0.0 C:\NPMStudy
+`-- moment@2.22.2
+
+C:\NPMStudy>npm list --depth 1
+NPMStudy@1.0.0 C:\NPMStudy
+`-- moment@2.22.2
+
+
+C:\NPMStudy>npm list --depth 0
+NPMStudy@1.0.0 C:\NPMStudy
+`-- moment@2.22.2
+
+C:\NPMStudy>npm list --global true --depth 0
+C:\Users\GSAY\AppData\Roaming\npm
+`-- (empty)
+
+11. npm Versioning
+To install any particular version of any package
+C:\NPMStudy>npm install lodash@3.3.0 --save
+npm WARN NPMStudy@1.0.0 No description
+npm WARN NPMStudy@1.0.0 No repository field.
+
++ lodash@3.3.0
+updated 1 package and audited 2 packages in 4.857s
+found 1 low severity vulnerability
+  run `npm audit fix` to fix them, or `npm audit` for details
+  
+The package.json file will display the version as 3.3.0 for lodash package
+
+C:\NPMStudy>npm install lodash@4.14 --save
+npm WARN NPMStudy@1.0.0 No description
+npm WARN NPMStudy@1.0.0 No repository field.
+
++ lodash@4.14.2
+updated 1 package and audited 2 packages in 8.854s
+found 1 low severity vulnerability
+  run `npm audit fix` to fix them, or `npm audit` for details
+  
+C:\NPMStudy>npm install lodash@4 --save
+npm WARN NPMStudy@1.0.0 No description
+npm WARN NPMStudy@1.0.0 No repository field.
+
++ lodash@4.17.11
+updated 1 package and audited 2 packages in 7.202s
+found 0 vulnerabilities
+ 
+12. Installing from package.json
+C:\NPMStudy>npm install
+npm notice created a lockfile as package-lock.json. You should commit this file.
+npm WARN NPMStudy@1.0.0 No description
+npm WARN NPMStudy@1.0.0 No repository field.
+
+added 2 packages from 8 contributors and audited 2 packages in 6.99s
+found 0 vulnerabilities
+
+Note: The above command will install lodash and moment pacakges inside "node_modules" folder.
+
+^4.17.11 - When run install command retrieve latest minor and patch version and keep the major version number same
+C:\NPMStudy>npm install
+npm WARN NPMStudy@1.0.0 No description
+npm WARN NPMStudy@1.0.0 No repository field.
+
+audited 2 packages in 0.825s
+found 0 vulnerabilities
+
+~4.17.11 - Leave major and minor version and retrieve latest patch version
+C:\NPMStudy>npm install
+npm WARN NPMStudy@1.0.0 No description
+npm WARN NPMStudy@1.0.0 No repository field.
+
+updated 1 package and audited 2 packages in 5.482s
+found 1 low severity vulnerability
+  run `npm audit fix` to fix them, or `npm audit` for details
+  
+4.14.1 - Install given version only
+C:\NPMStudy>npm install
+npm WARN NPMStudy@1.0.0 No description
+npm WARN NPMStudy@1.0.0 No repository field.
+
+updated 1 package and audited 2 packages in 8.807s
+found 1 low severity vulnerability
+  run `npm audit fix` to fix them, or `npm audit` for details
+  
+* - Retrieve the latest version
+C:\NPMStudy>npm install
+npm WARN NPMStudy@1.0.0 No description
+npm WARN NPMStudy@1.0.0 No repository field.
+
+audited 2 packages in 1.793s
+found 1 low severity vulnerability
+  run `npm audit fix` to fix them, or `npm audit` for details
+  
+13. Updating Packages
+C:\NPMStudy>npm update lodash --save
+npm WARN NPMStudy@1.0.0 No description
+npm WARN NPMStudy@1.0.0 No repository field.
+
++ lodash@4.17.11
+updated 1 package and audited 2 packages in 9.946s
+found 0 vulnerabilities
+
+C:\NPMStudy>npm update --dev --save-dev
+The above command will update all dev dependent packages
+
+C:\NPMStudy>npm update
+The above command will update all dependencies (dev and production packages)
+
+C:\NPMStudy>npm update -g
+
+C:\NPMStudy>npm update -g gulp
+
+To update npm with latest version of np open command propmt with Administrative Previleages and type the below command:
+C:\NPMStudy>npm install npm@latest -g
+C:\Users\GSAY\AppData\Roaming\npm\npx -> C:\Users\GSAY\AppData\Roaming\npm\node_modules\npm\bin\npx-cli.js
+C:\Users\GSAY\AppData\Roaming\npm\npm -> C:\Users\GSAY\AppData\Roaming\npm\node_modules\npm\bin\npm-cli.js
++ npm@6.4.1
+added 387 packages from 770 contributors in 67.078s
+
+14. npm Prune
+To remove unwanted pacakge npm Prune is done
+a. Install lodash, moment and underscore packages but in package.json keep entry of underscore package only. So we now want to remove other unwanted packages.
+
+C:\NPMStudy>npm list --depth 0
+NPMStudy@1.0.0 C:\NPMStudy
+`-- underscore@1.9.1
+
+C:\NPMStudy>npm prune
+npm WARN NPMStudy@1.0.0 No description
+npm WARN NPMStudy@1.0.0 No repository field.
+
+audited 1 package in 1.341s
+found 0 vulnerabilities
+
+15. Shortcuts
+a. To create package.json with default value:
+C:\NPMStudy>npm init --y
+Wrote to C:\NPMStudy\package.json:
+
+{
+  "name": "NPMStudy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Sanjay Adav",
+  "license": "ISC"
+}
+
+b. To install package locally:
+C:\NPMStudy>npm i lodash
+
+c. Install locally and save as dependency in pacakge.json:
+C:\NPMStudy>npm i lodash -S
+
+d. Install package as dev dependencies:
+C:\NPMStudy>npm i moment -D
+
+https://docs.npmjs.com/
+
+16. npm Scripts
+a. Create app.js with the below contents
+console.log("First npm script testing!")
+
+b. run the below command 
+C:\NPMStudy>node app.js
+First npm script testing!
+
+c. Update package.json as
+{
+  "name": "NPMStudy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "Sanjay Adav",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "moment": "^2.22.2"
+  }
+}
+
+d. Now run the eblow command
+C:\NPMStudy>npm start
+
+> NPMStudy@1.0.0 start C:\NPMStudy
+> node app.js
+
+First npm script testing!
